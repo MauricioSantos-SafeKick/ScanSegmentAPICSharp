@@ -30,7 +30,8 @@ public static class PointSweep
              from module in segment.Modules 
              from beam in module.Beams 
              let theta = RawThetaToRads(beam[0].Theta)
-             let r = beam[0].Echoes[0].Distance 
+             let r = beam[0].Echoes[0].Distance
+             where r != 0
              select new PolarPoint(r, theta))
 
       Console.WriteLine(point);
@@ -44,7 +45,7 @@ public static class PointSweep
     if (!FindEndOfFrame(segments.Skip(i).ToList(), out var j))
       throw new("Unable to find end of frame.");
 
-    return segments.Skip(i).Take(j).ToList();
+    return segments.Skip(i).Take(j + 1).ToList();
   }
 
   private static bool FindStartOfFrame(List<CompactSegment> segments, out int i)
