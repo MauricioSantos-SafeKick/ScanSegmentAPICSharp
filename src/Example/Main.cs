@@ -42,17 +42,19 @@ static class Example
     // Receive and collect 20 Compact segments
     var segments = ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
     var i = FindStartOfFrame(segments);
+    var singleFrameSegments = segments.Skip(i).Take(10).ToList();
 
     // Display information about the first 5 frames
-    foreach (var segment in segments.Skip(i - 1))
+    foreach (var segment in singleFrameSegments)
     {
       try
       {
         var startAngle = segment.Modules[0].MetaData.ThetaStart[0];
+        var endAngle = segment.Modules.Last().MetaData.ThetaStop[0];
         var frameNumber = segment.Modules[0].MetaData.FrameNumber;
         var segmentCounter = segment.Modules[0].MetaData.SegmentCounter;
         var distance = segment.Modules[0].Beams[6][0].Echoes[0].Distance; // Distance of the first echo of the 7th beam in the first layer of the first module
-        Console.WriteLine($"Frame number: {frameNumber}, segment counter: {segmentCounter:D3}, start angle: {startAngle:F4} rad, distance: {distance} mm");
+        Console.WriteLine($"Frame number: {frameNumber}, segment counter: {segmentCounter:D3}, start angle: {startAngle:F4} rad, endAngle: {endAngle} rad");
       }
       catch (Exception e)
       {
@@ -64,6 +66,6 @@ static class Example
 
   static int FindStartOfFrame(List<CompactSegment> segments)
   {
-    return segments.FindIndex(s => (Math.Abs(s.Modules[0].MetaData.ThetaStart[0] - (-2.40855)) > 1e-3));
+    return segments.FindIndex(s => (Math.Abs(s.Modules[0].MetaData.ThetaStart[0] - (-2.40855)) < 1e-3));
   }
 }
