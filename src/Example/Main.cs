@@ -40,13 +40,10 @@ static class Example
   /// </summary>
   public static void Main()
   {
-    var segments = ReceiveCompactSegments(port: 2115, numberOfSegments: 200).ToList();
-    PointSweep.PrintSameAnglePoint(segments);
+    var segments = ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
 
-    //// Receive and collect 20 Compact segments
-    //var i = FindStartOfFrame(segments);
-    //var singleFrameSegments = segments.Skip(i).Take(10).ToList();
-    //var points = new List<PolarPoint>();
+    var singleFrameSegments = PointSweep.GetSegmentsOfASingleFrame(segments);
+    PointSweep.PrintAllPoints(singleFrameSegments);
 
     //foreach (var segment in segments)
     //{
@@ -72,10 +69,5 @@ static class Example
     //  }
 
     //}
-  }
-
-  static int FindStartOfFrame(List<CompactSegment> segments)
-  {
-    return segments.FindIndex(s => (Math.Abs(s.Modules[0].MetaData.ThetaStart[0] - (-2.40855)) < 1e-3));
   }
 }
