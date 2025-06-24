@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\LidarUtil\LidarUtil.csproj" />
     <ProjectReference Include="..\CompactDeserializer\CompactDeserializer.csproj" />
   </ItemGroup>
 

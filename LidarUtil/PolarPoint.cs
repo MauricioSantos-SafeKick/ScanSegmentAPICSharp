@@ -1,6 +1,8 @@
-﻿namespace LidarUtil;
+﻿using static System.Math;
 
-internal class PolarPoint
+namespace LidarUtil;
+
+public class PolarPoint
 {
   public double R { get; set; }
   /// <summary>
@@ -13,10 +15,12 @@ internal class PolarPoint
     if (r < 0)
       throw new("R must be greater than zero.");
 
-    if (theta < -2 * Math.PI || theta > 2 * Math.PI)
+    if (theta is < -2 * PI or > 2 * PI)
       throw new("Theta must be between -2π and 2π.");
 
     R = r;
     Theta = theta;
   }
+
+  public override string ToString() => $"r = {R} mm, theta = {Theta:F2} rad";
 }

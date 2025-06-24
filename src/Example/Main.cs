@@ -5,6 +5,7 @@
 using Compact;
 using System.Net;
 using System.Net.Sockets;
+using LidarUtil;
 
 static class Example
 {
@@ -39,29 +40,38 @@ static class Example
   /// </summary>
   public static void Main()
   {
-    // Receive and collect 20 Compact segments
-    var segments = ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
-    var i = FindStartOfFrame(segments);
-    var singleFrameSegments = segments.Skip(i).Take(10).ToList();
+    var segments = ReceiveCompactSegments(port: 2115, numberOfSegments: 200).ToList();
+    PointSweep.PrintSameAnglePoint(segments);
 
-    // Display information about the first 5 frames
-    foreach (var segment in singleFrameSegments)
-    {
-      try
-      {
-        var startAngle = segment.Modules[0].MetaData.ThetaStart[0];
-        var endAngle = segment.Modules.Last().MetaData.ThetaStop[0];
-        var frameNumber = segment.Modules[0].MetaData.FrameNumber;
-        var segmentCounter = segment.Modules[0].MetaData.SegmentCounter;
-        var distance = segment.Modules[0].Beams[6][0].Echoes[0].Distance; // Distance of the first echo of the 7th beam in the first layer of the first module
-        Console.WriteLine($"Frame number: {frameNumber}, segment counter: {segmentCounter:D3}, start angle: {startAngle:F4} rad, endAngle: {endAngle} rad");
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine(e);
-      }
+    //// Receive and collect 20 Compact segments
+    //var i = FindStartOfFrame(segments);
+    //var singleFrameSegments = segments.Skip(i).Take(10).ToList();
+    //var points = new List<PolarPoint>();
 
-    }
+    //foreach (var segment in segments)
+    //{
+    //  try
+    //  {
+    //    var startAngle = segment.Modules[0].MetaData.ThetaStart[0];
+    //    foreach (var module in segment.Modules)
+    //      foreach (var beam in module.Beams)
+    //      {
+    //        var theta = (beam[0].Theta - 16387.0) / 5215.0;
+    //        var r = beam[0].Echoes[0].Distance;
+    //        var point = new PolarPoint(r, theta);
+    //        Console.WriteLine(point);
+    //      }
+    //    var endAngle = segment.Modules.Last().MetaData.ThetaStop[0];
+    //    var frameNumber = segment.Modules[0].MetaData.FrameNumber;
+    //    var segmentCounter = segment.Modules[0].MetaData.SegmentCounter;
+    //    var distance = segment.Modules[0].Beams[6][0].Echoes[0].Distance; // Distance of the first echo of the 7th beam in the first layer of the first module
+    //  }
+    //  catch (Exception e)
+    //  {
+    //    Console.WriteLine(e);
+    //  }
+
+    //}
   }
 
   static int FindStartOfFrame(List<CompactSegment> segments)
