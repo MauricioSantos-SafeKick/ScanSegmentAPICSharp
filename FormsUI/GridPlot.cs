@@ -18,11 +18,10 @@ internal class GridPlot
   private readonly Pen _linePen = new(Black, 1.0f);
 
   // Temporary fixed constant for grid size.
-  private const double L = 0.25;
-  private double _pixelsPerX;
-  private double _pixelsPerY;
-  private double _centerX;
-  private double _centerY;
+  private readonly double _pixelsPerX;
+  private readonly double _pixelsPerY;
+  private readonly double _centerX;
+  private readonly double _centerY;
 
   public GridPlot(PictureBox pb, List<XyPoint> points)
   {
@@ -37,8 +36,8 @@ internal class GridPlot
     _graphics.SmoothingMode = SmoothingMode.Default;
     _pictureBoxGraphics.SmoothingMode = SmoothingMode.Default;
 
-    _pixelsPerX = _bitmap.Width / 1200.0;
-    _pixelsPerY = _bitmap.Height / 1200.0;
+    _pixelsPerX = _bitmap.Width / 400.0;
+    _pixelsPerY = _bitmap.Height / 400.0;
     _centerX = _bitmap.Width / 2.0;
     _centerY = _bitmap.Height / 2.0;
     PlotGrid();
