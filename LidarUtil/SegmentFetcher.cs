@@ -18,16 +18,12 @@ public class SegmentFetcher
   public static IEnumerable<CompactSegment> ReceiveCompactSegments(int port, int numberOfSegments)
   {
     using var udpClient = new UdpClient(port);
-
-    Console.WriteLine($"Waiting to receive {numberOfSegments} Compact segments on UDP port {port}.");
-    Console.WriteLine("Press Ctrl+C to cancel.");
-
+    
     var ep = new IPEndPoint(IPAddress.Any, port);
     for (var i = 0; i < numberOfSegments; i++)
     {
       // Receive UDP packet and convert to compact frame
       var receivedData = udpClient.Receive(ref ep);
-      Console.WriteLine($"Received segment {i + 1}.");
       yield return CompactDeserializer.Convert(receivedData);
     }
   }

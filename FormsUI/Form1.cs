@@ -5,11 +5,13 @@ namespace FormsUI
   public partial class Form1 : Form
   {
     private readonly GridPlot _grid;
+    private readonly DataManager _dm;
 
     public Form1()
     {
       InitializeComponent();
       _grid = new(GridPb, []);
+      _dm = new DataManager();
     }
 
     private void GridPb_Paint(object sender, PaintEventArgs e)
@@ -33,9 +35,7 @@ namespace FormsUI
     /// </summary>
     private void FetchAndDraw()
     {
-      var segments = SegmentFetcher.ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
-      var singleFrameSegments = PointSweep.GetSegmentsOfASingleFrame(segments);
-      var points = PointSweep.PointsFromSegments(singleFrameSegments);
+      var points = _dm.FetchRawData();
       _grid.DrawGrid(points);
     }
 

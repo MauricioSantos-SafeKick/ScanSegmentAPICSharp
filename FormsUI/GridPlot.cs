@@ -36,8 +36,8 @@ internal class GridPlot
     _graphics.SmoothingMode = SmoothingMode.Default;
     _pictureBoxGraphics.SmoothingMode = SmoothingMode.Default;
 
-    _pixelsPerX = _bitmap.Width / 200.0;
-    _pixelsPerY = _bitmap.Height / 200.0;
+    _pixelsPerX = _bitmap.Width / 400.0;
+    _pixelsPerY = _bitmap.Height / 400.0;
     _centerX = _bitmap.Width / 2.0;
     _centerY = _bitmap.Height / 2.0;
 
