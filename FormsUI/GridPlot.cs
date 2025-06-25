@@ -36,7 +36,7 @@ internal class GridPlot
     _pictureBoxGraphics.SmoothingMode = SmoothingMode.Default;
 
     _pixelsPerX = _bitmap.Width / 40;
-    _pixelsPerX = _bitmap.Height / 40;
+    _pixelsPerY = _bitmap.Height / 40;
     PlotGrid();
     PlotPoints(points);
   }
@@ -63,12 +63,13 @@ internal class GridPlot
     for (var i = 0; i < points.Count - 1; i++)
     {
       // Convert the point to pixel coordinates
-      var x = (int)(points[i].X / L * 20 + _bitmap.Width / 2);
-      var y = (int)(_bitmap.Height / 2 - points[i].Y / L * 20);
+      var x1 = (int)(points[i].X * _pixelsPerX);
+      var y1 = (int)(points[i].Y * _pixelsPerY);
 
+      var x2 = (int)(points[i + 1].X * _pixelsPerX);
+      var y2 = (int)(points[i + 1].Y * _pixelsPerY);
 
-      // Draw the point
-      //_graphics.FillEllipse(Black, x - 2, y - 2, 4, 4);
+      _graphics.DrawLine(_linePen, x1, y1, x2, y2);
     }
     // Refresh the PictureBox to show the points
     _pictureBoxGraphics.DrawImage(_bitmap, new Rectangle(0, 0, _bitmap.Width, _bitmap.Height));
