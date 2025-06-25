@@ -16,7 +16,7 @@ namespace FormsUI
 
       try
       {
-         segments = SegmentFetcher.ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
+        segments = SegmentFetcher.ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
       }
       catch (Exception e)
       {
@@ -30,11 +30,30 @@ namespace FormsUI
       return ret;
     }
 
-    //internal List<XyPoint> FetchSmoothedData()
-    //{
-    //  var points = FetchRawData();
+    internal List<XyPoint> FetchSmoothedData(int period)
+    {
+      if (period is < 1 or > 10)
+      {
+        MessageBox.Show("Period must be between 1 and 100.");
+        return [];
+      }
+
+      var points = FetchRawData();
+      var averageList = new List<XyPoint>(period);
+
+      for (var i = 0; i < points.Count; i++)
+      {
+        averageList.Add(points[i]);
+        if (averageList.Count > period)
+          averageList.RemoveAt(0);
 
 
-    //}
+        var avgX = averageList.Average(p => p.X);
+        var avgY = averageList.Average(p => p.Y);
+        points[i] = new(avgX, avgY);
+      }
+
+      return points;
+    }
   }
 }
