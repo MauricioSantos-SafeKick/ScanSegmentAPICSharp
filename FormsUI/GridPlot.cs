@@ -13,6 +13,9 @@ internal class GridPlot
 
   private readonly Pen _linePen = new(Black, 1.0f);
 
+  // Temporary fixed constant for grid size.
+  private const double L = 0.25;
+
   public GridPlot(PictureBox pb)
   {
     _bitmap?.Dispose();
