@@ -50,7 +50,6 @@ namespace FormsUI
         if (averageList.Count > SmoothingPeriod)
           averageList.RemoveAt(0);
 
-
         var avgX = averageList.Average(p => p.X);
         var avgY = averageList.Average(p => p.Y);
         points[i] = new(avgX, avgY);

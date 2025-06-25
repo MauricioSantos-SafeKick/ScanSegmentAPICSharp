@@ -56,14 +56,7 @@ namespace FormsUI
       }
     }
 
-    private void SmoothRadioButton_CheckedChanged(object sender, EventArgs e)
-    {
-      SmoothingPeriodGroupBox.Visible = true;
-    }
-
-    private void RawRadioButton_CheckedChanged(object sender, EventArgs e)
-    {
-      SmoothingPeriodGroupBox.Visible = false;
-    }
+    private void SmoothRadioButton_CheckedChanged(object sender, EventArgs e) => SmoothingPeriodGroupBox.Visible = true;
+    private void RawRadioButton_CheckedChanged(object sender, EventArgs e) => SmoothingPeriodGroupBox.Visible = false;
   }
 }
