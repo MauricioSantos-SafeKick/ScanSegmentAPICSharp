@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Security.AccessControl;
-using static System.Math;
+﻿using static System.Math;
 using static LidarUtil.Constants;
 using static LidarUtil.Conversions;
 
@@ -33,6 +31,26 @@ public static class PointSweep
              select PolarPoint.FromBeam(beam[0]))
 
       Console.WriteLine(point);
+  }
+
+  public static List<XyPoint> PointsFromSegments(List<CompactSegment> segments)
+  {
+    var points = new List<XyPoint>();
+    foreach (var segment in segments)
+    {
+      foreach (var module in segment.Modules)
+      {
+        foreach (var beam in module.Beams)
+        {
+          foreach (var echo in beam)
+          {
+            var point = PolarPoint.FromBeam(echo);
+            points.Add(new XyPoint(point.R, point.Theta));
+          }
+        }
+      }
+    }
+    return points;
   }
 
   public static List<CompactSegment> GetSegmentsOfASingleFrame(List<CompactSegment> segments)
