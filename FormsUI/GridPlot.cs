@@ -21,6 +21,8 @@ internal class GridPlot
   private const double L = 0.25;
   private double _pixelsPerX;
   private double _pixelsPerY;
+  private double _centerX;
+  private double _centerY;
 
   public GridPlot(PictureBox pb, List<XyPoint> points)
   {
@@ -37,6 +39,8 @@ internal class GridPlot
 
     _pixelsPerX = _bitmap.Width / 1200.0;
     _pixelsPerY = _bitmap.Height / 1200.0;
+    _centerX = _bitmap.Width / 2.0;
+    _centerY = _bitmap.Height / 2.0;
     PlotGrid();
     PlotPoints(points);
   }
@@ -63,11 +67,11 @@ internal class GridPlot
     for (var i = 0; i < points.Count - 1; i++)
     {
       // Convert the point to pixel coordinates
-      var x1 = (int)(-points[i].X * _pixelsPerX + _pictureBox.Width / 2);
-      var y1 = (int)(-points[i].Y * _pixelsPerY + _pictureBox.Height / 2);
+      var y1 = (int)(_centerX - points[i].X * _pixelsPerX);
+      var x1 = (int)(_centerY - points[i].Y * _pixelsPerY);
 
-      var x2 = (int)(-points[i + 1].X * _pixelsPerX + _pictureBox.Width / 2);
-      var y2 = (int)(-points[i + 1].Y * _pixelsPerY + _pictureBox.Height / 2);
+      var y2 = (int)(_centerX - points[i + 1].X * _pixelsPerX);
+      var x2 = (int)(_centerY - points[i + 1].Y * _pixelsPerY);
 
       _graphics.DrawLine(_linePen, x1, y1, x2, y2);
     }
