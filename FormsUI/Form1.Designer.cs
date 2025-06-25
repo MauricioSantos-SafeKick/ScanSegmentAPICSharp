@@ -36,8 +36,12 @@
       DrawingModeGroupBox = new GroupBox();
       SmoothRadioButton = new RadioButton();
       RawRadioButton = new RadioButton();
+      SmoothingPeriodUpDown = new NumericUpDown();
+      SmoothingPeriodGroupBox = new GroupBox();
       ((System.ComponentModel.ISupportInitialize)GridPb).BeginInit();
       DrawingModeGroupBox.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)SmoothingPeriodUpDown).BeginInit();
+      SmoothingPeriodGroupBox.SuspendLayout();
       SuspendLayout();
       // 
       // GridPb
@@ -94,6 +98,7 @@
       SmoothRadioButton.TabStop = true;
       SmoothRadioButton.Text = "Smooth";
       SmoothRadioButton.UseVisualStyleBackColor = true;
+      SmoothRadioButton.CheckedChanged += SmoothRadioButton_CheckedChanged;
       // 
       // RawRadioButton
       // 
@@ -106,12 +111,34 @@
       RawRadioButton.TabStop = true;
       RawRadioButton.Text = "Raw";
       RawRadioButton.UseVisualStyleBackColor = true;
+      RawRadioButton.CheckedChanged += RawRadioButton_CheckedChanged;
+      // 
+      // SmoothingPeriodUpDown
+      // 
+      SmoothingPeriodUpDown.Location = new Point(28, 22);
+      SmoothingPeriodUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+      SmoothingPeriodUpDown.Name = "SmoothingPeriodUpDown";
+      SmoothingPeriodUpDown.Size = new Size(87, 23);
+      SmoothingPeriodUpDown.TabIndex = 5;
+      SmoothingPeriodUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+      // 
+      // SmoothingPeriodGroupBox
+      // 
+      SmoothingPeriodGroupBox.Controls.Add(SmoothingPeriodUpDown);
+      SmoothingPeriodGroupBox.Location = new Point(756, 885);
+      SmoothingPeriodGroupBox.Name = "SmoothingPeriodGroupBox";
+      SmoothingPeriodGroupBox.Size = new Size(148, 64);
+      SmoothingPeriodGroupBox.TabIndex = 6;
+      SmoothingPeriodGroupBox.TabStop = false;
+      SmoothingPeriodGroupBox.Text = "Smoothing period";
+      SmoothingPeriodGroupBox.Visible = false;
       // 
       // Form1
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(984, 961);
+      Controls.Add(SmoothingPeriodGroupBox);
       Controls.Add(DrawingModeGroupBox);
       Controls.Add(RunStopButton);
       Controls.Add(RefreshButton);
@@ -121,6 +148,8 @@
       ((System.ComponentModel.ISupportInitialize)GridPb).EndInit();
       DrawingModeGroupBox.ResumeLayout(false);
       DrawingModeGroupBox.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)SmoothingPeriodUpDown).EndInit();
+      SmoothingPeriodGroupBox.ResumeLayout(false);
       ResumeLayout(false);
     }
 
@@ -133,5 +162,7 @@
     private GroupBox DrawingModeGroupBox;
     private RadioButton RawRadioButton;
     private RadioButton SmoothRadioButton;
+    private NumericUpDown SmoothingPeriodUpDown;
+    private GroupBox SmoothingPeriodGroupBox;
   }
 }

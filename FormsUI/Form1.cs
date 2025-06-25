@@ -1,4 +1,5 @@
 ﻿using LidarUtil;
+using static FormsUI.DataManager.DataFormat;
 
 namespace FormsUI
 {
@@ -11,7 +12,7 @@ namespace FormsUI
     {
       InitializeComponent();
       _grid = new(GridPb, []);
-      _dm = new DataManager();
+      _dm = new();
     }
 
     private void GridPb_Paint(object sender, PaintEventArgs e)
@@ -35,10 +36,34 @@ namespace FormsUI
     /// </summary>
     private void FetchAndDraw()
     {
-      var points = _dm.FetchSmoothedData(5);
+      var mode = SmoothRadioButton.Checked ? Smoothed : Raw;
+      _dm.SmoothingPeriod = (int)SmoothingPeriodUpDown.Value;
+      var points = _dm.FetchData(mode);
       _grid.DrawGrid(points);
     }
 
-    private void GridTimer_Tick(object sender, EventArgs e) => FetchAndDraw();
+    private void GridTimer_Tick(object sender, EventArgs e)
+    {
+      try
+      {
+        FetchAndDraw();
+      }
+      catch (Exception ex)
+      {
+        GridTimer.Stop();
+        RunStopButton.Text = "Run";
+        MessageBox.Show("Error: " + ex.Message);
+      }
+    }
+
+    private void SmoothRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+      SmoothingPeriodGroupBox.Visible = true;
+    }
+
+    private void RawRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+      SmoothingPeriodGroupBox.Visible = false;
+    }
   }
 }

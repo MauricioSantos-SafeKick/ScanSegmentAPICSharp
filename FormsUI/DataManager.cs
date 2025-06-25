@@ -6,45 +6,48 @@ namespace FormsUI
 {
   internal class DataManager
   {
+    internal enum DataFormat
+    {
+      Raw,
+      Smoothed
+    }
+
+    internal int SmoothingPeriod { get; set; } = 5; // Default smoothing period
+
+    internal List<XyPoint> FetchData(DataFormat dataFormat)
+    {
+      return dataFormat switch
+      {
+        DataFormat.Raw => FetchRawData(),
+        DataFormat.Smoothed => FetchSmoothedData(),
+        _ => throw new ArgumentOutOfRangeException(nameof(dataFormat), dataFormat, null)
+      };
+    }
+
     /// <summary>
     /// Fetches data from the UDP, treats them and draws them on the grid.
     /// </summary>
     internal List<XyPoint> FetchRawData()
     {
-      var ret = new List<XyPoint>();
-      List<CompactSegment> segments;
-
-      try
-      {
-        segments = SegmentFetcher.ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
-      }
-      catch (Exception e)
-      {
-        MessageBox.Show("Unable to fetch data. Details: \n" + e.Message);
-        return ret;
-      }
-
+      var segments = SegmentFetcher.ReceiveCompactSegments(port: 2115, numberOfSegments: 20).ToList();
       var singleFrameSegments = PointSweep.GetSegmentsOfASingleFrame(segments);
-      ret = PointSweep.PointsFromSegments(singleFrameSegments);
+      var ret = PointSweep.PointsFromSegments(singleFrameSegments);
 
       return ret;
     }
 
-    internal List<XyPoint> FetchSmoothedData(int period)
+    internal List<XyPoint> FetchSmoothedData()
     {
-      if (period is < 1 or > 10)
-      {
-        MessageBox.Show("Period must be between 1 and 100.");
-        return [];
-      }
+      if (SmoothingPeriod is < 1 or > 10)
+        throw new("Period must be between 1 and 100.");
 
       var points = FetchRawData();
-      var averageList = new List<XyPoint>(period);
+      var averageList = new List<XyPoint>(SmoothingPeriod);
 
       for (var i = 0; i < points.Count; i++)
       {
         averageList.Add(points[i]);
-        if (averageList.Count > period)
+        if (averageList.Count > SmoothingPeriod)
           averageList.RemoveAt(0);
 
 
