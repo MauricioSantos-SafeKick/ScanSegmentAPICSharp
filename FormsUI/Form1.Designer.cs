@@ -28,8 +28,11 @@
     /// </summary>
     private void InitializeComponent()
     {
+      components = new System.ComponentModel.Container();
       GridPb = new PictureBox();
       RefreshButton = new Button();
+      RunStopButton = new Button();
+      GridTimer = new System.Windows.Forms.Timer(components);
       ((System.ComponentModel.ISupportInitialize)GridPb).BeginInit();
       SuspendLayout();
       // 
@@ -44,7 +47,7 @@
       // 
       // RefreshButton
       // 
-      RefreshButton.Location = new Point(250, 896);
+      RefreshButton.Location = new Point(312, 895);
       RefreshButton.Name = "RefreshButton";
       RefreshButton.Size = new Size(75, 23);
       RefreshButton.TabIndex = 1;
@@ -52,11 +55,26 @@
       RefreshButton.UseVisualStyleBackColor = true;
       RefreshButton.Click += RefreshButton_Click;
       // 
+      // RunStopButton
+      // 
+      RunStopButton.Location = new Point(442, 895);
+      RunStopButton.Name = "RunStopButton";
+      RunStopButton.Size = new Size(75, 23);
+      RunStopButton.TabIndex = 2;
+      RunStopButton.Text = "Run";
+      RunStopButton.UseVisualStyleBackColor = true;
+      RunStopButton.Click += RunStopButton_Click;
+      // 
+      // GridTimer
+      // 
+      GridTimer.Tick += GridTimer_Tick;
+      // 
       // Form1
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(984, 961);
+      Controls.Add(RunStopButton);
       Controls.Add(RefreshButton);
       Controls.Add(GridPb);
       Name = "Form1";
@@ -69,5 +87,7 @@
 
     private PictureBox GridPb;
     private Button RefreshButton;
+    private Button RunStopButton;
+    private System.Windows.Forms.Timer GridTimer;
   }
 }
