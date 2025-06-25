@@ -29,6 +29,7 @@
     private void InitializeComponent()
     {
       GridPb = new PictureBox();
+      RefreshButton = new Button();
       ((System.ComponentModel.ISupportInitialize)GridPb).BeginInit();
       SuspendLayout();
       // 
@@ -41,11 +42,22 @@
       GridPb.TabStop = false;
       GridPb.Paint += GridPb_Paint;
       // 
+      // RefreshButton
+      // 
+      RefreshButton.Location = new Point(250, 896);
+      RefreshButton.Name = "RefreshButton";
+      RefreshButton.Size = new Size(75, 23);
+      RefreshButton.TabIndex = 1;
+      RefreshButton.Text = "Refresh";
+      RefreshButton.UseVisualStyleBackColor = true;
+      RefreshButton.Click += RefreshButton_Click;
+      // 
       // Form1
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(984, 961);
+      Controls.Add(RefreshButton);
       Controls.Add(GridPb);
       Name = "Form1";
       Text = "Form1";
@@ -56,5 +68,6 @@
     #endregion
 
     private PictureBox GridPb;
+    private Button RefreshButton;
   }
 }

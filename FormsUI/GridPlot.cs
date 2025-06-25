@@ -36,17 +36,26 @@ internal class GridPlot
     _graphics.SmoothingMode = SmoothingMode.Default;
     _pictureBoxGraphics.SmoothingMode = SmoothingMode.Default;
 
-    _pixelsPerX = _bitmap.Width / 1200.0;
-    _pixelsPerY = _bitmap.Height / 1200.0;
+    _pixelsPerX = _bitmap.Width / 200.0;
+    _pixelsPerY = _bitmap.Height / 200.0;
     _centerX = _bitmap.Width / 2.0;
     _centerY = _bitmap.Height / 2.0;
-    PlotGrid();
+
+    DrawGrid(points);
+    PlotGridLines();
     PlotPoints(points);
   }
 
-  private void PlotGrid()
+  internal void DrawGrid(List<XyPoint> points)
   {
     _graphics.Clear(White);
+    PlotGridLines();
+    PlotPoints(points);
+    _pictureBoxGraphics.DrawImage(_bitmap, 0, 0);
+  }
+
+  private void PlotGridLines()
+  {
     // Draw horizontal lines
     for (var y = 0; y < _bitmap.Height; y += 20)
       _graphics.DrawLine(_gridPen, 0, y, _bitmap.Width, y);
