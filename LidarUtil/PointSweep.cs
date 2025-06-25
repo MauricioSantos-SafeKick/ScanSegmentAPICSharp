@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Security.AccessControl;
+using static System.Math;
 using static LidarUtil.Constants;
 using static LidarUtil.Conversions;
 
@@ -29,10 +30,7 @@ public static class PointSweep
              from segment in segments 
              from module in segment.Modules 
              from beam in module.Beams 
-             let theta = RawThetaToRads(beam[0].Theta)
-             let r = beam[0].Echoes[0].Distance
-             where r != 0
-             select new PolarPoint(r, theta))
+             select PolarPoint.FromBeam(beam[0]))
 
       Console.WriteLine(point);
   }
@@ -42,21 +40,27 @@ public static class PointSweep
     if (!FindStartOfFrame(segments, out var i))
       throw new("Unable to find start of frame.");
 
-    if (!FindEndOfFrame(segments.Skip(i).ToList(), out var j))
+    segments = segments.Skip(i).ToList();
+
+    if (!FindEndOfFrame(segments.ToList(), out var j))
       throw new("Unable to find end of frame.");
 
-    return segments.Skip(i).Take(j + 1).ToList();
+    segments = segments.Take(j + 1).ToList();
+
+    segments.Last().Modules[0].Beams.RemoveAll(b => RawThetaToRads(b[0].Theta) > (ThetaMax + 1e-3));
+
+    return segments;
   }
 
   private static bool FindStartOfFrame(List<CompactSegment> segments, out int i)
   {
-    i = segments.FindIndex(s => Math.Abs(s.Modules[0].MetaData.ThetaStart[0] - -ThetaMax) < 1e-3);
+    i = segments.FindIndex(s => Abs(s.Modules[0].MetaData.ThetaStart[0] - -ThetaMax) < 1e-3);
     return i != -1;
   }
 
   private static bool FindEndOfFrame(List<CompactSegment> segments, out int i)
   {
-    i = segments.FindIndex(s => Math.Abs(s.Modules[0].MetaData.ThetaStop[0] - ThetaMax) < 1e-3);
+    i = segments.FindIndex(s => Abs(s.Modules[0].MetaData.ThetaStop[0] - ThetaMax) < 1e-3);
     return i != -1;
   }
 }

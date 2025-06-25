@@ -1,4 +1,6 @@
-﻿using static System.Math;
+﻿using Compact;
+using static System.Math;
+using static LidarUtil.Conversions;
 
 namespace LidarUtil;
 
@@ -20,6 +22,14 @@ public class PolarPoint
 
     R = r;
     Theta = theta;
+  }
+
+  public static PolarPoint FromBeam(Beam beam)
+  {
+    var theta = RawThetaToRads(beam.Theta);
+    var r = beam.Echoes[0].Distance;
+
+    return new(r, theta);
   }
 
   public override string ToString() => $"r = {R} mm, theta = {Theta:F2} rad";
