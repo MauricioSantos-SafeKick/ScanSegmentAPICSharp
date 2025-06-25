@@ -28,12 +28,33 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
-      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 450);
-      this.Text = "Form1";
+      GridPb = new PictureBox();
+      ((System.ComponentModel.ISupportInitialize)GridPb).BeginInit();
+      SuspendLayout();
+      // 
+      // GridPb
+      // 
+      GridPb.Location = new Point(169, 67);
+      GridPb.Name = "GridPb";
+      GridPb.Size = new Size(430, 296);
+      GridPb.TabIndex = 0;
+      GridPb.TabStop = false;
+      GridPb.Paint += GridPb_Paint;
+      // 
+      // Form1
+      // 
+      AutoScaleDimensions = new SizeF(7F, 15F);
+      AutoScaleMode = AutoScaleMode.Font;
+      ClientSize = new Size(800, 450);
+      Controls.Add(GridPb);
+      Name = "Form1";
+      Text = "Form1";
+      ((System.ComponentModel.ISupportInitialize)GridPb).EndInit();
+      ResumeLayout(false);
     }
 
     #endregion
+
+    private PictureBox GridPb;
   }
 }
