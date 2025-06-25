@@ -45,7 +45,7 @@ public static class PointSweep
           foreach (var echo in beam)
           {
             var point = PolarPoint.FromBeam(echo);
-            points.Add(new XyPoint(point.R, point.Theta));
+            points.Add(XyPoint.FromPolar(point.R, point.Theta));
           }
         }
       }

@@ -21,6 +21,8 @@ public class XyPoint
 
       return new(x, y);
     }
+
+    public override string ToString() => $"x = {X:F2}, y = {Y:F2}";
 }
 
 
