@@ -4,7 +4,7 @@ namespace FormsUI
 {
   public partial class Form1 : Form
   {
-    private GridPlot _grid;
+    private readonly GridPlot _grid;
 
     public Form1(List<XyPoint> points)
     {

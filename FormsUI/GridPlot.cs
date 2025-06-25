@@ -36,8 +36,8 @@ internal class GridPlot
     _graphics.SmoothingMode = SmoothingMode.Default;
     _pictureBoxGraphics.SmoothingMode = SmoothingMode.Default;
 
-    _pixelsPerX = _bitmap.Width / 400.0;
-    _pixelsPerY = _bitmap.Height / 400.0;
+    _pixelsPerX = _bitmap.Width / 1200.0;
+    _pixelsPerY = _bitmap.Height / 1200.0;
     _centerX = _bitmap.Width / 2.0;
     _centerY = _bitmap.Height / 2.0;
     PlotGrid();
@@ -49,16 +49,14 @@ internal class GridPlot
     _graphics.Clear(White);
     // Draw horizontal lines
     for (var y = 0; y < _bitmap.Height; y += 20)
-    {
       _graphics.DrawLine(_gridPen, 0, y, _bitmap.Width, y);
-    }
+
     // Draw vertical lines
     for (var x = 0; x < _bitmap.Width; x += 20)
-    {
       _graphics.DrawLine(_gridPen, x, 0, x, _bitmap.Height);
-    }
-    // Refresh the PictureBox to show the grid
-    _pictureBoxGraphics.DrawImage(_bitmap, new Rectangle(0, 0, _bitmap.Width, _bitmap.Height));
+
+    // Draw circle at the center
+    _graphics.FillEllipse(new SolidBrush(Black), (int)(_centerX - 10), (int)(_centerY - 10), 20, 20);
   }
 
   private void PlotPoints(List<XyPoint> points)
@@ -74,8 +72,6 @@ internal class GridPlot
 
       _graphics.DrawLine(_linePen, x1, y1, x2, y2);
     }
-    // Refresh the PictureBox to show the points
-    _pictureBoxGraphics.DrawImage(_bitmap, new Rectangle(0, 0, _bitmap.Width, _bitmap.Height));
   }
 
   internal void Paint(object? sender, PaintEventArgs e)

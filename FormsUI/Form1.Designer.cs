@@ -34,9 +34,9 @@
       // 
       // GridPb
       // 
-      GridPb.Location = new Point(169, 67);
+      GridPb.Location = new Point(77, 79);
       GridPb.Name = "GridPb";
-      GridPb.Size = new Size(400, 400);
+      GridPb.Size = new Size(800, 800);
       GridPb.TabIndex = 0;
       GridPb.TabStop = false;
       GridPb.Paint += GridPb_Paint;
@@ -45,7 +45,7 @@
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(810, 605);
+      ClientSize = new Size(984, 961);
       Controls.Add(GridPb);
       Name = "Form1";
       Text = "Form1";
