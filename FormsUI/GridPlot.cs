@@ -63,11 +63,11 @@ internal class GridPlot
     for (var i = 0; i < points.Count - 1; i++)
     {
       // Convert the point to pixel coordinates
-      var x1 = (int)(points[i].X * _pixelsPerX);
-      var y1 = (int)(points[i].Y * _pixelsPerY);
+      var x1 = (int)(points[i].X * _pixelsPerX + _pictureBox.Width / 2);
+      var y1 = (int)(-points[i].Y * _pixelsPerY + _pictureBox.Height / 2);
 
-      var x2 = (int)(points[i + 1].X * _pixelsPerX);
-      var y2 = (int)(points[i + 1].Y * _pixelsPerY);
+      var x2 = (int)(points[i + 1].X * _pixelsPerX + _pictureBox.Width / 2);
+      var y2 = (int)(-points[i + 1].Y * _pixelsPerY + _pictureBox.Height / 2);
 
       _graphics.DrawLine(_linePen, x1, y1, x2, y2);
     }
