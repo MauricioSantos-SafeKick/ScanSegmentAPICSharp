@@ -38,7 +38,7 @@ namespace FormsUI
 
     internal List<XyPoint> FetchSmoothedData()
     {
-      if (SmoothingPeriod is < 1 or > 10)
+      if (SmoothingPeriod is < 1 or > 100)
         throw new("Period must be between 1 and 100.");
 
       var points = FetchRawData();
