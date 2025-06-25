@@ -33,7 +33,11 @@
       RefreshButton = new Button();
       RunStopButton = new Button();
       GridTimer = new System.Windows.Forms.Timer(components);
+      DrawingModeGroupBox = new GroupBox();
+      SmoothRadioButton = new RadioButton();
+      RawRadioButton = new RadioButton();
       ((System.ComponentModel.ISupportInitialize)GridPb).BeginInit();
+      DrawingModeGroupBox.SuspendLayout();
       SuspendLayout();
       // 
       // GridPb
@@ -69,17 +73,54 @@
       // 
       GridTimer.Tick += GridTimer_Tick;
       // 
+      // DrawingModeGroupBox
+      // 
+      DrawingModeGroupBox.Controls.Add(SmoothRadioButton);
+      DrawingModeGroupBox.Controls.Add(RawRadioButton);
+      DrawingModeGroupBox.Location = new Point(564, 885);
+      DrawingModeGroupBox.Name = "DrawingModeGroupBox";
+      DrawingModeGroupBox.Size = new Size(171, 64);
+      DrawingModeGroupBox.TabIndex = 3;
+      DrawingModeGroupBox.TabStop = false;
+      DrawingModeGroupBox.Text = "Mode";
+      // 
+      // SmoothRadioButton
+      // 
+      SmoothRadioButton.AutoSize = true;
+      SmoothRadioButton.Location = new Point(72, 23);
+      SmoothRadioButton.Name = "SmoothRadioButton";
+      SmoothRadioButton.Size = new Size(67, 19);
+      SmoothRadioButton.TabIndex = 1;
+      SmoothRadioButton.TabStop = true;
+      SmoothRadioButton.Text = "Smooth";
+      SmoothRadioButton.UseVisualStyleBackColor = true;
+      // 
+      // RawRadioButton
+      // 
+      RawRadioButton.AutoSize = true;
+      RawRadioButton.Checked = true;
+      RawRadioButton.Location = new Point(19, 23);
+      RawRadioButton.Name = "RawRadioButton";
+      RawRadioButton.Size = new Size(47, 19);
+      RawRadioButton.TabIndex = 0;
+      RawRadioButton.TabStop = true;
+      RawRadioButton.Text = "Raw";
+      RawRadioButton.UseVisualStyleBackColor = true;
+      // 
       // Form1
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(984, 961);
+      Controls.Add(DrawingModeGroupBox);
       Controls.Add(RunStopButton);
       Controls.Add(RefreshButton);
       Controls.Add(GridPb);
       Name = "Form1";
       Text = "Form1";
       ((System.ComponentModel.ISupportInitialize)GridPb).EndInit();
+      DrawingModeGroupBox.ResumeLayout(false);
+      DrawingModeGroupBox.PerformLayout();
       ResumeLayout(false);
     }
 
@@ -89,5 +130,8 @@
     private Button RefreshButton;
     private Button RunStopButton;
     private System.Windows.Forms.Timer GridTimer;
+    private GroupBox DrawingModeGroupBox;
+    private RadioButton RawRadioButton;
+    private RadioButton SmoothRadioButton;
   }
 }

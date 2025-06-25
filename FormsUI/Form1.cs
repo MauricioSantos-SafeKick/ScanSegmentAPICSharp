@@ -35,7 +35,7 @@ namespace FormsUI
     /// </summary>
     private void FetchAndDraw()
     {
-      var points = _dm.FetchRawData();
+      var points = _dm.FetchSmoothedData(5);
       _grid.DrawGrid(points);
     }
 
