@@ -2,9 +2,7 @@
 // Copyright (c) 2024 SICK AG
 // SPDX-License-Identifier: MIT
 //
-using Compact;
-using System.Net;
-using System.Net.Sockets;
+
 using LidarUtil;
 using static LidarUtil.SegmentFetcher;
 

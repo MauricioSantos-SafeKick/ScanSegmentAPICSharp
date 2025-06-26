@@ -1,8 +1,5 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
+﻿using System.Drawing.Drawing2D;
 using LidarUtil;
-using Microsoft.VisualBasic.CompilerServices;
 using static System.Drawing.Color;
 
 namespace FormsUI;
@@ -29,7 +26,7 @@ internal class GridPlot
     _graphics?.Dispose();
     _pictureBoxGraphics?.Dispose();
 
-    _pictureBox = pb;
+    _pictureBox = pb; 
     _bitmap = new(pb.Width, pb.Height);
     _graphics = Graphics.FromImage(_bitmap);
     _pictureBoxGraphics = pb.CreateGraphics();
